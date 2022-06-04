@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashBoardController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// admin
+Route::get('admin/login',[UserController::class,'loginIndexAdmin'])->name('admin.login');
+Route::post('admin/authentication',[UserController::class,'check'])->name('admin.authentication');
+Route::middleware(['auth','admin'])->group(function(){
+    Route::get('admin/dashboard',[DashBoardController::class,'dashboard'])->name('admin.dashboard');
+        // Route::get('admin/logout',[UserController::class,'logout'])->name('admin.logout');
+        // Route::get('admin/user',[UserController::class,'user'])->name('admin.user');
 });
+
+// user
