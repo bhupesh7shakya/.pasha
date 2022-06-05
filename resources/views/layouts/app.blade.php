@@ -65,16 +65,16 @@
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
     {{-- sweet alert --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="{{ asset('script.js') }}"></script>
+    {{-- <script src="{{ asset('script.js') }}"></script> --}}
     {{-- <script src="{{asset('global.min.js')}}"></script> --}}
     {{-- <script src="{{asset("script/custom.min.js")}}"></script>
     <script src="{{asset("script/dlabnav-init.js")}}"></script> --}}
     <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable();
-        });
+        // $(document).ready(function() {
+        //     $('#myTable').DataTable();
+        // });
     </script>
-    @yield('custom-script')
+    @yield('custom-scripts')
 </body>
 
 </html>
