@@ -1,4 +1,4 @@
-<form style="width: 100%;" id="form" method="POST" action="{{ $form['route'] }}">
+<form style="width: 100%;" id="form" method="POST" action="{{ $form['route'] }}" enctype="multipart/form-data">
     @csrf
     @if ($form['method'] == 'put' || $form['method'] == 'patch')
         @method('put')
@@ -12,11 +12,18 @@
                             <label for="{{ $field['label'] }}" class="form-label">{{ $field['label'] }}</label>
                             {{-- input start --}}
                             <input type="{{ $field['type'] }}" {{-- for the text field only --}}
+                            @if ($field['type'] == 'file')
+
+                                class="form-control
+
+                            @endif
                                 @if ($field['type'] == 'text') class="form-control
-                                    @if (isset($field['class'])) {{ $field['class'] }} @endif "
+                                    @if (isset($field['class'])) {{ $field['class'] }} @endif
+                            "
                                  @endif
                             @if ($field['type'] == 'number') class="form-control
-                                    @if (isset($field['class'])) {{ $field['class'] }} @endif
+                                    @if (isset($field['class'])) {{ $field['class'] }}
+                             @endif
                             "
                         @endif
                         {{-- for the date --}}
@@ -71,7 +78,7 @@
                 <label for="{{ $field['label'] }}" class="form-label">{{ $field['label'] }}</label>
                 <select class="form-select form-control" name="{{ $field['name'] }}" id="">{{ $field['value'] }}>
                     @foreach ($field['options'] as $key => $option)
-                        <option @if ($field['value'] == $option) selected @endif value="{{ $option }}">
+                        <option @if ($field['value'] == $option) selected @endif value="{{ $key }}">
                             {{ $option }}</option>
                     @endforeach
                 </select>
@@ -120,8 +127,8 @@
     @foreach ($form['fields'] as $row)
         @foreach ($row as $field)
             @if (isset($field['type']) && $field['type'] == 'checkbox')
-                <x-script.check-box-script id="{{ $field['name'] }}">
-                    </x-script>
+                {{-- <x-script.check-box-script id="{{ $field['name'] }}">
+                    </x-script> --}}
             @endif
             @if (isset($field['class']) && $field['class'] == 'ndp-nepali-calendar')
                 <script>

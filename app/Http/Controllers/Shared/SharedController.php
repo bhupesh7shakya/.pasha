@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shared;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -30,12 +31,12 @@ class SharedController extends Controller
                 ->addColumn('action', function ($row) {
                     return '<div class="text-center">
                                 <a href="' . route("{$this->route_name}.edit", "{$row['id']}") . '">
-                                     <button  type="button" class="s btn-sm btn-primary" ><i class="fa fa-pencil"></i></button>
+                                     <button  type="button" class="btn btn-primary" ><i class="ti ti-edit"></i></button>
                                 </a>
                                 <!-- <a href="' . route("{$this->route_name}.show", "{$row['id']}") . '">
-                                    <button  type="button" class="s btn-sm btn-primary" ><i class="fa fa-eye"></i></button>
+                                    <button  type="button" class="btn btn-primary" ><i class="fa fa-eye"></i></button>
                                  </a>-->
-                               <button onclick="del(' . $row['id'] . ')" type="button" class="btn btn-sm btn-danger" ><i class="fa fa-trash"></i></button>
+                               <button onclick="del(' . $row['id'] . ')" type="button" class="btn btn-danger" ><i class="ti ti-trash"></i></i></button>
                             </div>';
                 })
                 ->rawColumns(['action'])
@@ -85,6 +86,7 @@ class SharedController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+
         if ($this->class_instance::create($request->all())) {
             session()->flash("success", "Data inserted successfully");
             return redirect()->route("{$this->route_name}.index");
@@ -102,23 +104,23 @@ class SharedController extends Controller
      */
     public function show($id)
     {
-            $data['view_only'] = true;
-            $data['route_name'] = '#';
-            $data['title'] = $this->title;
-            $data['data'] = $this->class_instance::find($id);
-            /*
+        $data['view_only'] = true;
+        $data['route_name'] = '#';
+        $data['title'] = $this->title;
+        $data['data'] = $this->class_instance::find($id);
+        /*
                 createForm() :- createes a form araay and set to $form variable of class
             */
 
-                // $this->createForm();
-                $this->createForm($data['data'], 'put', 'update');
-                $data['form'] = $this->form;
-            /*
+        // $this->createForm();
+        $this->createForm($data['data'], 'put', 'update');
+        $data['form'] = $this->form;
+        /*
                 $data['form'] :- this variable gets the array of form with various fields
                 which will be use in the shared view of create as well as edit form
                 in which array will be pass to the form compnenet params in the view
             */
-            return view($this->view_path . '.show', compact('data'));
+        return view($this->view_path . '.show', compact('data'));
     }
 
     /**
@@ -136,9 +138,9 @@ class SharedController extends Controller
             createForm() :- createes a form araay and set to $form variable of class
         */
 
-            // $this->createForm();
-            $this->createForm($data['data'], 'put', 'update');
-            $data['form'] = $this->form;
+        // $this->createForm();
+        $this->createForm($data['data'], 'put', 'update');
+        $data['form'] = $this->form;
         /*
             $data['form'] :- this variable gets the array of form with various fields
             which will be use in the shared view of create as well as edit form
@@ -179,9 +181,8 @@ class SharedController extends Controller
     public function destroy($id)
     {
         $instance = $this->class_instance::find($id);
-        $instance->id = $id;
-        $instance->is_deleted = 1;
-        return ($instance->save()) ?
+
+        return ($instance->delete()) ?
             response()->json(
                 [
                     'status' => 200,
@@ -194,5 +195,11 @@ class SharedController extends Controller
                     'message' => 'Server Error',
                 ]
             );
+    }
+    public function upload($file)
+    {
+        $file_name = time() . time() . uniqid() . $file->getClientOriginalName();
+        Storage::disk('local')->putFileAs('public/images/', $file, $file_name);
+        return $file_name;
     }
 }

@@ -13,7 +13,7 @@
         </li>
 
         <li>
-            <a href="{{route('categories.index')}}">
+            <a href="{{route('category.index')}}">
                 <i class='bx bxs-category-alt'></i>
                 <span class="text">Category</span>
             </a>

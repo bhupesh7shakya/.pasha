@@ -17,12 +17,12 @@
     <x-script.datatable-script :options="[
         'route' => route($data['route_name'].'.index'),
         'columns' => $data['columns'],
-    ]">
+    ]"/>
         {{-- datatable --}}
-    </x-script.datatable-script>
+    {{-- </x-script.datatable-script> --}}
     {{-- alert --}}
-    <x-script.alert></x-script.alert>
+    {{-- <x-script.alert></x-script.alert> --}}
     {{-- alert --}}
-    {{-- <x-script.delete-script route="{{ route($data['route_name'].'.destroy', '') }}"></x-script.delete-script> --}}
+    <x-script.delete-script route="{{ route($data['route_name'].'.destroy', '') }}"/>
 @endsection
 {{-- custom script ends --}}

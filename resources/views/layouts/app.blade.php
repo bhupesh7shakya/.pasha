@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta10/dist/css/tabler-flags.min.css">
     <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta10/dist/css/tabler-payments.min.css">
     <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta10/dist/css/tabler-vendors.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/1.35.0/iconfont/tabler-icons.min.css">
     <script src="https://unpkg.com/@tabler/core@1.0.0-beta10/dist/js/tabler.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta10/dist/css/tabler.min.css">
     {{-- tabler --}}
@@ -62,7 +64,9 @@
     </script>
     -->
     {{-- file fond --}}
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+    {{-- <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script> --}}
+
+
     {{-- sweet alert --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {{-- <script src="{{ asset('script.js') }}"></script> --}}
@@ -70,9 +74,11 @@
     {{-- <script src="{{asset("script/custom.min.js")}}"></script>
     <script src="{{asset("script/dlabnav-init.js")}}"></script> --}}
     <script>
-        // $(document).ready(function() {
-        //     $('#myTable').DataTable();
-        // });
+         $(document).ready(function() {
+             $('#myTable').DataTable();
+         });
+
+
     </script>
     @yield('custom-scripts')
 </body>
