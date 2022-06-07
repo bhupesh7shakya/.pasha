@@ -12,18 +12,12 @@
                             <label for="{{ $field['label'] }}" class="form-label">{{ $field['label'] }}</label>
                             {{-- input start --}}
                             <input type="{{ $field['type'] }}" {{-- for the text field only --}}
-                            @if ($field['type'] == 'file')
-
-                                class="form-control
-
-                            @endif
+                                @if ($field['type'] == 'file') class="form-control @endif
                                 @if ($field['type'] == 'text') class="form-control
-                                    @if (isset($field['class'])) {{ $field['class'] }} @endif
-                            "
-                                 @endif
+                                    @if (isset($field['class'])) {{ $field['class'] }} @endif "
+                                  @endif
                             @if ($field['type'] == 'number') class="form-control
-                                    @if (isset($field['class'])) {{ $field['class'] }}
-                             @endif
+                                    @if (isset($field['class'])) {{ $field['class'] }} @endif
                             "
                         @endif
                         {{-- for the date --}}
@@ -36,27 +30,19 @@
                         {{-- for the place holder --}} placeholder="{{ $field['placeholder'] }}" {{-- value isset or not --}}
                         @if (isset($field['value'])) value="{{ $field['value'] }}" @endif
                         {{-- checked checkbox --}}
-                        @if (isset($field['checked']) && $field['checked'] == true)
-                        checked
-                        @endif
+                        @if (isset($field['checked']) && $field['checked'] == true) checked @endif
                         {{-- disabled --}}
-                         @if ((isset($field['disabled']) && $field['disabled'] == true))
-                             disabled
-                         @endif
+                        @if (isset($field['disabled']) && $field['disabled'] == true) disabled @endif
 
-                         @if ((isset($field['readonly']) && $field['readonly'] == true))
-                            readonly
-                        @endif
+                        @if (isset($field['readonly']) && $field['readonly'] == true) readonly @endif
                         >
                         {{-- input ends --}}
 
                         @if ($field['type'] == 'checkbox')
                             <input type="hidden" id="{{ $field['name'] }}" name="{{ $field['name'] }}"
-                                @if (isset($field['checked']) && $field['checked'] == true)
-                                value="1"
+                                @if (isset($field['checked']) && $field['checked'] == true) value="1"
                                 @else
-                                     value="0"
-                                @endif>
+                                     value="0" @endif>
                         @endif
                         {{-- throws the error --}}
                         @error($field['name'])
@@ -68,7 +54,8 @@
                             <b></h1> --}}
                         @if (isset($field['label']) && empty($field['options']))
 
-                          <u>  <label for="{{ $field['label'] }}" class="form-label fs-4">{{ $field['label'] }}</label></u>
+                            <u> <label for="{{ $field['label'] }}"
+                                    class="form-label fs-4">{{ $field['label'] }}</label></u>
 
                             <hr style="margin-top:-4px">
                         @endif
@@ -76,7 +63,10 @@
             {{-- for the options tag --}}
             @if (isset($field['options']))
                 <label for="{{ $field['label'] }}" class="form-label">{{ $field['label'] }}</label>
-                <select class="form-select form-control" name="{{ $field['name'] }}" id="">{{ $field['value'] }}>
+                <select class="form-select form-control" name="{{ $field['name'] }}" id="" {{-- disabled --}}
+                    @if (isset($field['disabled']) && $field['disabled'] == true) disabled @endif
+                    @if (isset($field['readonly']) && $field['readonly'] == true) readonly @endif
+                    >
                     @foreach ($field['options'] as $key => $option)
                         <option @if ($field['value'] == $option) selected @endif value="{{ $key }}">
                             {{ $option }}</option>
@@ -112,8 +102,8 @@
                 @enderror
             </div>
         </div> --}}
-        <br>
-        <button type="submit" class="float-end btn btn-primary">Save</button>
+    <br>
+    <button type="submit" class="float-end btn btn-primary">Save</button>
     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 </form>
 
