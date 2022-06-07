@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Shared\SharedController;
 use App\Models\Admin\Category;
+use App\Models\Admin\Inventory;
 use App\Models\Admin\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -56,6 +57,10 @@ class ProductController extends SharedController
         $data['img_url_first'] = $this->upload($request->file('img_url_first'));
         $data['img_url_second'] = $this->upload($request->file('img_url_second'));
         if ($this->class_instance::create($data)) {
+            Inventory::create([
+                'product_id' => $this->class_instance::latest()->first()->id,
+                'quantity' => 0,
+            ]);
             session()->flash("success", "Data inserted successfully");
             return redirect()->route("{$this->route_name}.index");
         } else {

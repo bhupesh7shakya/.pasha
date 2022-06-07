@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashBoardController;
+use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('dashboard', [DashBoardController::class, 'dashboard'])->name('admin.dashboard');
         Route::resource('category', CategoryController::class);
         Route::resource('product', ProductController::class);
+        Route::resource('inventory', InventoryController::class);
 
         // Route::get('admin/logout',[UserController::class,'logout'])->name('admin.logout');
         // Route::get('admin/user',[UserController::class,'user'])->name('admin.user');
