@@ -107,6 +107,42 @@
                         </span>
                     </a>
                 </li>
+                <li class="nav-item m-2">
+                    <a class="nav-link" href="{{ route('slider.index') }}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <desc>Download more icon variants from https://tabler-icons.io/i/adjustments-horizontal</desc>
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <circle cx="14" cy="6" r="2"></circle>
+                                <line x1="4" y1="6" x2="12" y2="6"></line>
+                                <line x1="16" y1="6" x2="20" y2="6"></line>
+                                <circle cx="8" cy="12" r="2"></circle>
+                                <line x1="4" y1="12" x2="6" y2="12"></line>
+                                <line x1="10" y1="12" x2="20" y2="12"></line>
+                                <circle cx="17" cy="18" r="2"></circle>
+                                <line x1="4" y1="18" x2="15" y2="18"></line>
+                                <line x1="19" y1="18" x2="20" y2="18"></line>
+                             </svg>
+                        </span>
+                        <span class="nav-link-title fs-2">
+                            Slider
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item m-2">
+                    <a class="nav-link" href="{{ route('featured-product.index') }}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <desc>Download more icon variants from https://tabler-icons.io/i/star</desc>
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+                             </svg>
+                        </span>
+                        <span class="nav-link-title fs-2">
+                            Featured Product
+                        </span>
+                    </a>
+                </li>
             </ul>
         </div>
 
