@@ -43,7 +43,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     });
 });
 
-Route::get('/', [HomeController::class,'index'])->name('home');
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/search-result', [HomeController::class, 'searchResult'])->name('search-result');
 
 // user

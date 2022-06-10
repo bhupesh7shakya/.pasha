@@ -32,9 +32,9 @@
         </div>
         <div class="row d-flex">
             @foreach ($data['category'] as $c)
-            <div class="col col-sm-2">
-                <a href="#" class="card card-link card-link-pop">
-                  <div class="card-body text-uppercase tracking-tight antialiased">{{$c->name}}</div>
+            <div class="col col-sm-4 col-lg-2 my-1">
+                <a href="{{route('search-result')."?category=".$c->id}}" class="card card-link card-link-pop d-flex" style="height: 148.5px">
+                  <div class="card-body text-center fs-6 text-uppercase align-items-center d-flex justify-content-center tracking-tight antialiased">{{$c->name}}</div>
                 </a>
             </div>
             @endforeach
@@ -56,7 +56,7 @@
                     <a href="#" class="d-block text-center mb-4">
                         <div class="product-list">
                             <div class="product-image position-relative">
-                                <span class="sale">sale</span>
+                                <span class="sale">New</span>
                                 <img src="{{ url('storage/images/' . $na->img_url_first) }}" alt="products"
                                     class="img-fluid product-image-first">
                                 <img src="{{ url('storage/images/' . $na->img_url_second) }}" alt="products"
