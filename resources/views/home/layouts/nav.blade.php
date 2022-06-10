@@ -12,7 +12,7 @@
             </button>
             <div class="input-icon" style="position:absolute;left:50%;transform:translateX(-50%) ">
                 <form action="{{ route('search-result') }}" method="get">
-                    <input type="text" value="{{ old('search') }}" autocomplete="false" name='search'
+                    <input type="text" value="{{(isset($_GET['search'])?$_GET['search']:null) }}" autocomplete="false" name='search'
                         class="form-control form-control-rounded w-" placeholder="Search…" style="width: 500px;">
                 </form>
                 <span class="input-icon-addon">

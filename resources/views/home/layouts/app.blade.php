@@ -33,7 +33,6 @@
         rel="stylesheet" />
     <title>ClothingStore</title>
 </head>
-
 <body data-bs-spy="scroll" data-bs-target=".navbar">
     {{-- @include('layouts.sidebar') --}}
     {{-- {{-- <section id="content"> --}}
