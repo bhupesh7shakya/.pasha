@@ -53,7 +53,7 @@
         <div class="row">
             @foreach ($data['new_arrivals'] as $na)
                 <div class="col-sm-6 col-lg-4">
-                    <a href="#" class="d-block text-center mb-4">
+                    <a href="{{route('product',$na->id)}}" class="d-block text-center mb-4">
                         <div class="product-list">
                             <div class="product-image position-relative">
                                 <span class="sale">New</span>
@@ -95,7 +95,7 @@
 
             @foreach ($data['featured_products'] as $fp)
                 <div class="col-sm-6 col-lg-4">
-                    <a href="#" class="d-block text-center mb-4">
+                    <a href="{{route('product',$na->id)}}" class="d-block text-center mb-4">
                         <div class="product-list">
                             <div class="product-image position-relative">
                                 <span class="sale">sale</span>

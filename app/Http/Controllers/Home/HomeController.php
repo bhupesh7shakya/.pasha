@@ -25,7 +25,7 @@ class HomeController extends Controller
         $start_time = microtime(true);
         $data['category'] = Category::all();
         $data['search_result'] = Product::query()
-            ->with('category')
+            ->with('category',)
                 ->when(isset($request->search), function ($query) use ($request) {
                     return $query->where('name', 'like', '%' . $request->search . '%');
                 })
@@ -54,5 +54,11 @@ class HomeController extends Controller
         $data['total_time'] = substr(microtime(true) - $start_time, 0, 8);
         // return $data;
         return view('home.search_result', compact('data'));
+    }
+
+    public function product($id)
+    {
+        $data['product'] = Product::find($id);
+        return view('home.product',compact('data'));
     }
 }

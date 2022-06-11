@@ -24,9 +24,10 @@ class InventoryController extends SharedController
         'Quantity',
     ];
     public $columns = [
-        'product_id',
+        'product.name',
         'quantity',
     ];
+    public $relation = ["product"];
 
     public function createForm($data = null, $method = 'post', $action = 'store')
     {

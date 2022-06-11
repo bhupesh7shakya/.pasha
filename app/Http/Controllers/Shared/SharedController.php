@@ -19,13 +19,19 @@ class SharedController extends Controller
     public $table_headers;
     public $columns;
     public $form;
-
+    public $relation;
     public function index(Request $request)
     {
         // return $this->currentFiscalYear();
+
         if ($request->ajax()) {
-            $data = $this->class_instance::all()
+            if(isset($this->relation)){
+                $data = $this->class_instance::with($this->relation)->get();
+            }else{
+
+                $data = $this->class_instance::all()
                 ->where('is_deleted', 0);
+            }
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {

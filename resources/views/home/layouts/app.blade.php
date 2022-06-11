@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     {{-- <meta http-equiv="refresh" content="1"> --}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-signin-client_id" content="69224837317-bbv99vpku9tf2bhk2j0sruv9et57jl44">
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- My CSS -->
@@ -42,6 +43,10 @@
     {{-- </section> --}}
     @include('home.layouts.footer')
     <!-- Optional JavaScript; choose one of the two! -->
+
+
+
+
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
@@ -84,11 +89,7 @@
     {{-- <script src="{{asset('global.min.js')}}"></script> --}}
     {{-- <script src="{{asset("script/custom.min.js")}}"></script>
     <script src="{{asset("script/dlabnav-init.js")}}"></script> --}}
-    <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable();
-        });
-    </script>
+
     @yield('custom-scripts')
 </body>
 

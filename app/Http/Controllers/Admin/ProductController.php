@@ -15,10 +15,11 @@ class ProductController extends SharedController
 {
     public $title = 'Products';
     public $class_instance = Product::class;
+    public $id;
     public $route_name = 'product';
     public $view_path = 'shared_view';
-    public $rules = [
-        'name' => 'required|string|max:255|unique:products',
+    public $rules=[
+        'name' => 'required|string|max:255|unique:products,name,',
         'size' => 'required|string|max:255',
         'price' => 'required|numeric',
         'category_id' => 'required|integer',
@@ -39,10 +40,10 @@ class ProductController extends SharedController
         'name',
         'size',
         'price',
-        'category_id',
+        'category.name',
         'description',
     ];
-
+    public $relation=['category'];
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), $this->rules);
@@ -65,6 +66,25 @@ class ProductController extends SharedController
             return redirect()->route("{$this->route_name}.index");
         } else {
             session()->flash("error", "Server Error Code 500");
+            return redirect()->route("{$this->route_name}.index");
+        }
+    }
+    public function update(Request $request, $id)
+    {
+        $this->rules['name']=$this->rules['name'].$id;
+        $validator = Validator::make($request->all(), $this->rules);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $data = $request->all();
+        $data['img_url_first'] = $this->upload($request->file('img_url_first'));
+        $data['img_url_second'] = $this->upload($request->file('img_url_second'));
+        $data = $this->class_instance::find($id);
+
+        if ($data->update($request->all())) {
+            session()->flash("success", "Data updated successfully");
             return redirect()->route("{$this->route_name}.index");
         }
     }

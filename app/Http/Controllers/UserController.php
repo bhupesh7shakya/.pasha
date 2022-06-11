@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
@@ -24,5 +25,14 @@ class UserController extends Controller
         }else{
             return Redirect::back()->with('msg','Wrong Credentials');
         }
+    }
+    public function redirectToGoogle()
+    {
+         return Socialite::driver('google')->redirect();
+    }
+    public function handleGoogleCallback()
+    {
+        $user = Socialite::driver('google')->user();
+        return $user;
     }
 }

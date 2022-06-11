@@ -21,9 +21,10 @@ class FeaturedProductController extends SharedController
         'Product Name',
     ];
     public $columns = [
-        'product_id',
+        'product.name',
     ];
 
+    public $relation = ["product"];
 
     public function createForm($data = null, $method = 'post', $action = 'store')
     {

@@ -15,4 +15,7 @@ class Order extends Model
         "payment_method",
         "user_id",
     ];
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
 }

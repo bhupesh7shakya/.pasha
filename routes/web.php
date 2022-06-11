@@ -42,8 +42,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
         // Route::get('admin/user',[UserController::class,'user'])->name('admin.user');
     });
 });
-
+Route::get('auth/google', [UserController::class, 'redirectToGoogle'])->name('google.redirect');
+ROute::get('auth/google/callback', [UserController::class, 'handleGoogleCallback']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search-result', [HomeController::class, 'searchResult'])->name('search-result');
-
+Route::get('/product/{id}', [HomeController::class, 'product'])->name('product');
 // user

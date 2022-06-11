@@ -126,7 +126,7 @@
                                 @endif
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="card card-sm">
-                                        <a href="#" class="d-block"><img style="height: 15em"
+                                        <a href="{{route('product',$product->id)}}" class="d-block"><img style="min-height: 15em;max-height: 18em;"
                                                 src="{{ url('/storage/images/' . $product->img_url_first) }}"
                                                 class="card-img-top"></a>
                                         <div class="card-body">
