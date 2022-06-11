@@ -32,7 +32,7 @@ class UserController extends Controller
     }
     public function handleGoogleCallback()
     {
-        $user = Socialite::driver('google')->user();
-        return $user;
+            $user = Socialite::driver('google')->stateless()->user();
+            dd($user);
     }
 }

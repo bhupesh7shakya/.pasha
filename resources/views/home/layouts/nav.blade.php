@@ -153,7 +153,7 @@
                             </form>
                             <br>
                             <p class="text-center">Or</p>
-                            <button data-onsuccess="onSignIn" class="g-signin2">
+                            <a href="{{route('google.redirect')}}" data-onsuccess="onSignIn" class="g-signin2">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-brand-google" width="24" height="24"
@@ -164,7 +164,7 @@
                                     <path d="M17.788 5.108a9 9 0 1 0 3.212 6.892h-8"></path>
                                 </svg>
                                 Login with Google
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -208,7 +208,7 @@
                             </form>
                             <br>
                             <p class="text-center">Or</p>
-                            <button data-onsuccess="onSignIn" class="g-signin2 btn btn-danger w-100">
+                            <a href="{{route('google.redirect')}}" data-onsuccess="onSignIn" class="g-signin2 btn btn-danger w-100">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-brand-google" width="24" height="24"
@@ -219,7 +219,7 @@
                                     <path d="M17.788 5.108a9 9 0 1 0 3.212 6.892h-8"></path>
                                 </svg>
                                 Signup with Google
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -37,7 +37,6 @@
                           @endif
                           ,
                           render: function(data, type, row) {
-
                               if (data == '1') {
                                   return `
                                   <span class="badge text-success">
