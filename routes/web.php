@@ -47,4 +47,5 @@ ROute::get('auth/google/callback', [UserController::class, 'handleGoogleCallback
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search-result', [HomeController::class, 'searchResult'])->name('search-result');
 Route::get('/product/{id}', [HomeController::class, 'product'])->name('product');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 // user

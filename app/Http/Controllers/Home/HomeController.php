@@ -8,11 +8,14 @@ use App\Models\Admin\FeaturedProduct;
 use App\Models\Admin\Product;
 use App\Models\Admin\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        Session::put('url.intended',URL::current());
         $data['sliders'] = Slider::all();
         $data['featured_products'] = FeaturedProduct::with('product')->take(3)->get();
         $data['new_arrivals'] = Product::all()->take(3)->sortByDesc('created_at');
@@ -22,6 +25,7 @@ class HomeController extends Controller
     }
     public function searchResult(Request $request)
     {
+        Session::put('url.intended',URL::current());
         $start_time = microtime(true);
         $data['category'] = Category::all();
         $data['search_result'] = Product::query()
@@ -58,6 +62,7 @@ class HomeController extends Controller
 
     public function product($id)
     {
+        Session::put('url.intended',URL::current());
         $data['product'] = Product::find($id);
         return view('home.product',compact('data'));
     }

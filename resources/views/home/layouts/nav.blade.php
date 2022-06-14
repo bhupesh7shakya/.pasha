@@ -33,29 +33,46 @@
                     <li class="nav-item mx-2">
                         <div class="dropdown">
                             <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1"
-                                aria-label="addToCart">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user"
-                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <desc>Download more icon variants from https://tabler-icons.io/i/user</desc>
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-                                </svg>
+                                aria-label="userLogin">
+                                @if (Auth::check())
+                                    <img src="{{ Auth::user()->avatar }}" alt="{{Auth::user()->name}}" class="avatar">
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user"
+                                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <desc>Download more icon variants from https://tabler-icons.io/i/user</desc>
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                    </svg>
+                                @endif
                             </a>
                             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
                                 <div class="card">
                                     <div class="list-group list-group-flush list-group-hoverable">
-                                        <div class="list-group-item">
-                                            <button type="button" class="btn btn-white" data-bs-toggle="modal"
-                                                data-bs-target="#Login">
+                                        @if (auth()->check())
+                                            <div class="list-group-item">
+                                                Profile
+                                            </div>
+                                            <div class="list-group-item">
+                                                <a href="{{ route('logout') }}">
+                                                    Logout
+                                                </a>
+                                        @else
+                                        <button type="button" class="btn btn-white border-0" data-bs-toggle="modal"
+                                            data-bs-target="#Login">
+                                            <div class="list-group-item">
                                                 Sign in
-                                            </button>
-                                            <button type="button" class="btn btn-white" data-bs-toggle="modal"
-                                                data-bs-target="#Signup">
+                                            </div>
+                                        </button>
+                                        <button type="button" class="btn btn-white border-0" data-bs-toggle="modal"
+                                            data-bs-target="#Signup">
+                                            <div class="list-group-item">
                                                 Sign up
-                                            </button>
-                                        </div>
+                                            </div>
+                                        </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +170,7 @@
                             </form>
                             <br>
                             <p class="text-center">Or</p>
-                            <a href="{{route('google.redirect')}}" data-onsuccess="onSignIn" class="g-signin2">
+                            <a href="{{ route('google.redirect') }}" data-onsuccess="onSignIn" class="g-signin2">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-brand-google" width="24" height="24"
@@ -208,7 +225,8 @@
                             </form>
                             <br>
                             <p class="text-center">Or</p>
-                            <a href="{{route('google.redirect')}}" data-onsuccess="onSignIn" class="g-signin2 btn btn-danger w-100">
+                            <a href="{{ route('google.redirect') }}" data-onsuccess="onSignIn"
+                                class="g-signin2 btn btn-danger w-100">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-brand-google" width="24" height="24"
@@ -228,4 +246,3 @@
         </div>
     </div>
 </section>
-

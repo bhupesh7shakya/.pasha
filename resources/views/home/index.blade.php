@@ -32,8 +32,8 @@
         </div>
         <div class="row d-flex">
             @foreach ($data['category'] as $c)
-            <div class="col col-sm-4 col-lg-2 my-1">
-                <a href="{{route('search-result')."?category=".$c->id}}" class="card card-link card-link-pop d-flex" style="height: 148.5px">
+            <div class="col-xs-6 col-sm-2 col-sm-4  col-lg-2 my-1">
+                <a href="{{route('search-result')."?category=".$c->id}}" class="card card-link card-link-pop d-flex" style="height: 100%">
                   <div class="card-body text-center fs-6 text-uppercase align-items-center d-flex justify-content-center tracking-tight antialiased">{{$c->name}}</div>
                 </a>
             </div>
