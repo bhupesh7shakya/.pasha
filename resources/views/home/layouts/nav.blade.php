@@ -80,7 +80,7 @@
                     </li>
                     <li class="nav-item mx-2">
                         <div class="dropdown">
-                            <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1"
+                            <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" data-bs-auto-close="outside" tabindex="-1"
                                 aria-label="addToCart">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-shopping-cart-plus" width="24" height="24"
@@ -95,48 +95,25 @@
                                     <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13"></path>
                                     <path d="M15 6h6m-3 -3v6"></path>
                                 </svg>
+                                <span id="cart-count" class="badge badge-pill badge-primary">
+                                    0
+                                </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
-                                <div class="card">
+                                <div class="card" style="min-width:23em;max-height:23em">
                                     <div class="card-header">
                                         <h3 class="card-title">List Of Items</h3>
                                     </div>
-                                    <div class="list-group list-group-flush list-group-hoverable">
-                                        <div class="list-group-item">
-                                            <div class="row align-items-center">
-                                                <div class="col-auto"><span
-                                                        class="status-dot status-dot-animated bg-red d-block"></span>
-                                                </div>
-                                                <div class="col text-truncate">
-                                                    <a href="#" class="text-body d-block">Example 1</a>
-                                                    <div class="d-block text-muted text-truncate mt-n1">
-                                                        Change deprecated html tags to text decoration classes (#29604)
-                                                    </div>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <a href="#" class="list-group-item-actions">
-                                                        <!-- Download SVG icon from http://tabler-icons.io/i/star -->
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted"
-                                                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                            stroke="currentColor" fill="none" stroke-linecap="round"
-                                                            stroke-linejoin="round">
-                                                            <desc>Download more icon variants from
-                                                                https://tabler-icons.io/i/star</desc>
-                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                            <path
-                                                                d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z">
-                                                            </path>
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div id="item-list" class="list-group list-group-flush overflow-auto" style="max-height: 35rem;max-height:20em">
 
+
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary float-end">Check Out</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </li>
                 </ul>
             </div>

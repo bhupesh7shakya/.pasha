@@ -37,7 +37,9 @@
                 {{-- {{ $data['product']->description }} --}}
                 Stock:-10 pcs.
             </p>
-            <button onclick="addToCart({{$data['product']->id}})" class="buy-btn btn-danger text-uppercase float-end">Add to Cart</button>
+            <button onclick="addToCart({{ $data['product']->id }})"
+                class="buy-btn btn-danger text-uppercase float-end">Add
+                to Cart</button>
 
             <h3 class="mt-5 mb-5">{{ $data['product']->details }}</h3>
             <span>
@@ -45,23 +47,34 @@
             </span>
         </div>
     </div>
-
 @endsection
 
 @section('custom-scripts')
     <script>
         function addToCart(id) {
-        @if (Auth::check())
-            alert('Product added to cart');
-        @else
-            swal({
-                title: "Please Login First",
-                text: "You need to login to add to cart",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-        @endif
+            @if (Auth::check())
+                var quantity = $('input[type="number"]').val();
+                $.ajax({
+                    url: '{{ route('cart.add') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: id,
+                        quantity: quantity
+                    },
+                    success: function(data) {
+                        renderCart(data);
+                    }
+                });
+            @else
+                swal({
+                    title: "Please Login First",
+                    text: "You need to login to add to cart",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+            @endif
         }
     </script>
 @endsection

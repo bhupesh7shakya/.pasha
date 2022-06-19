@@ -21,8 +21,9 @@ class CreateOrdersTable extends Migration
                 ->onDelete("cascade")
                 ->onUpdate("cascade");
             $table->integer('quantity');
-            $table->enum('status', ['pending', 'processing', 'completed', 'cancelled']);
-            $table->enum('payment_method', ['khalti','cash_on_delivery']);
+            $table->boolean('is_confirmed')->default(false);
+            $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending');
+            $table->foreignId('payment_id')->unassigned()->nullable();
             $table->foreignId('user_id')
                 ->references('id')
                 ->on('users')

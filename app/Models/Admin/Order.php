@@ -12,7 +12,7 @@ class Order extends Model
         "product_id",
         "quantity",
         "status",
-        "payment_method",
+        "payment_id",
         "user_id",
     ];
     public function product(){

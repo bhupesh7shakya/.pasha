@@ -7,6 +7,7 @@ use App\Http\Controllers\Shared\SharedController;
 use App\Models\Admin\Order;
 use App\Models\Admin\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
@@ -46,12 +47,12 @@ class OrderController extends Controller
             [
 
                 [
-                    ['disabled'=>true,'name' => 'product_id', 'label' => 'Product', 'value' => (isset($data->product_id)) ? Product::all()->find($data->product_id) : null, 'placeholder' => 'Product', 'options' => Product::all()->pluck('name', 'id')],
-                    ['disabled'=>true,'type' => 'number', 'name' => 'quantity', 'label' => 'quantity', 'value' => (isset($data->quantity)) ? $data->quantity : null, 'placeholder' => 'quantity',],
+                    ['disabled' => true, 'name' => 'product_id', 'label' => 'Product', 'value' => (isset($data->product_id)) ? Product::all()->find($data->product_id) : null, 'placeholder' => 'Product', 'options' => Product::all()->pluck('name', 'id')],
+                    ['disabled' => true, 'type' => 'number', 'name' => 'quantity', 'label' => 'quantity', 'value' => (isset($data->quantity)) ? $data->quantity : null, 'placeholder' => 'quantity',],
                 ],
                 [
-                    ['options'=>['pending'=>'pending', 'processing'=>'processing', 'completed'=>'completed', 'cancelled'=>'cancelled'],'name'=>'status','label'=>'status','value'=>(isset($data->status)) ? $data->status : null,'placeholder'=>'status'],
-                    ['disabled'=>true,'options'=>['khalti'=>'khalti', 'cash_on_delivery'=>'cash_on_delivery'],'name'=>'payment_method','label'=>'Payment Method','value'=>(isset($data->payment_method)) ? $data->payment_method : null,'placeholder'=>'Payment Method'],
+                    ['options' => ['pending' => 'pending', 'processing' => 'processing', 'completed' => 'completed', 'cancelled' => 'cancelled'], 'name' => 'status', 'label' => 'status', 'value' => (isset($data->status)) ? $data->status : null, 'placeholder' => 'status'],
+                    ['disabled' => true, 'options' => ['khalti' => 'khalti', 'cash_on_delivery' => 'cash_on_delivery'], 'name' => 'payment_method', 'label' => 'Payment Method', 'value' => (isset($data->payment_method)) ? $data->payment_method : null, 'placeholder' => 'Payment Method'],
                 ]
             ]
         ];
@@ -89,7 +90,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return abort(404,"page not found");
+        return abort(404, "page not found");
         $data['route_name'] = $this->route_name;
         $data['title'] = $this->title;
         /*
@@ -114,7 +115,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-        return abort(404,"page not found");
+        return abort(404, "page not found");
         $validator = Validator::make($request->all(), $this->rules);
 
         if ($validator->fails()) {
@@ -233,5 +234,123 @@ class OrderController extends Controller
                     'message' => 'Server Error',
                 ]
             );
+    }
+
+    public function cart(Request $request)
+    {
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'product_id' => 'required',
+                'quantity' => 'required|min:0',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(
+                    [
+                        'status' => 400,
+                        'message' => 'Bad Request',
+                        'data' => $validator->errors()
+                    ]
+                );
+            }
+            if ($this->class_instance::create([
+                'product_id' => $request->product_id,
+                'quantity' => $request->quantity,
+                'user_id' => Auth::user()->id,
+            ])) {
+                $data = $this->class_instance::with('product')->get()->where('user_id', Auth::user()->id)->where('is_place', 0);
+                return response()->json(
+                    [
+                        'status' => 200,
+                        'message' => 'Added to cart successfully',
+                        'data' => $data,
+                        'count' => $data->count()
+                    ]
+                );
+            } else {
+                return response()->json(
+                    [
+                        'status' => 500,
+                        'message' => 'Server Error',
+                    ]
+                );
+            }
+        }
+        return abort(404, "page not found");
+    }
+
+    public function ConfirmOrder(Request $request)
+    {
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'order_id' => 'required',
+                'payment_id' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(
+                    [
+                        'status' => 400,
+                        'message' => 'Bad Request',
+                        'data' => $validator->errors()
+                    ]
+                );
+            }
+            $order = $this->class_instance::find($request->order_id);
+            $order->is_confirmed = 1;
+            if ($order->save()) {
+                return response()->json(
+                    [
+                        'status' => 200,
+                        'message' => 'Order Placed Successfully',
+                        'data' => $this->class_instance::all()->where('user_id', Auth::user()->id)
+                    ]
+                );
+            } else {
+                return response()->json(
+                    [
+                        'status' => 500,
+                        'message' => 'Server Error',
+                    ]
+                );
+            }
+        }
+    }
+    public function getCartData(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $this->class_instance::with('product')->get()->where('user_id', Auth::user()->id)->where('is_place', 0);
+            return response()->json(
+                [
+                    'status' => 200,
+                    'data' => $data,
+                    'count' => $data->count()
+                ]
+            );
+        }
+        return abort(404, "page not found");
+    }
+
+    public function removeItemCart(Request $request, $id)
+    {
+        if ($request->ajax()) {
+
+            $item = $this->class_instance::find($id);
+            if ($item->delete()) {
+                $data=$this->class_instance::with('product')->get()->where('user_id',Auth::user()->id)->where('is_place',0);
+                return response()->json(
+                    [
+                        'status' => 200,
+                        'data' => $data,
+                        'count' => $data->count()
+                    ]
+                );
+            } else {
+                return response()->json(
+                    [
+                        'status' => 500,
+                        'message' => 'Server Error',
+                    ]
+                );
+            }
+        }
     }
 }

@@ -34,6 +34,7 @@
         rel="stylesheet" />
     <title>ClothingStore</title>
 </head>
+
 <body data-bs-spy="scroll" data-bs-target=".navbar">
     {{-- @include('layouts.sidebar') --}}
     {{-- {{-- <section id="content"> --}}
@@ -90,7 +91,110 @@
     {{-- <script src="{{asset("script/custom.min.js")}}"></script>
     <script src="{{asset("script/dlabnav-init.js")}}"></script> --}}
 
+    <script>
+        function renderCart(data) {
+            if (data.status == '200') {
+                console.log(data);
+                $('#cart-count').text(data.count);
+                $.map(data.data, function(item, indexOrKey) {
+                    $('#item-list').append(`
+                                    <a href="#">
+                                        <div class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-auto">
+                                                    <a href="#">
+                                                        <img class="avatar" src="{{ url('/storage/images/${item.product.img_url_first}') }}"></span>
+                                                    </a>
+                                                </div>
+                                                <div class="col text-truncate">
+                                                    <a href="#" class="text-body d-block">${item.product.name}</a>
+                                                    <div class="text-muted text-truncate mt-n1">qty: ${item.quantity}</div>
+                                                </div>
+                                                <div class= "col-auto">
+                                                    <div class="text-muted">
+                                                        <span class="text-muted">NRS ${item.product.price*item.quantity}</span>
+                                                    </div>
+                                                </div>
+                                                <div class= "col-auto">
+                                                    <button class='btn btn-white border-0' onclick="removeItem(this,${item.id})">
+                                                        <div class="text-muted">
+                                                            <span class="text-muted">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                                </svg>
+                                                            </span>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                            `);
+                });
+
+
+            } else {
+                swal('Error', data.message, 'error');
+            }
+        }
+    </script>
+
+    <script>
+        // alert('hello');
+        function removeItem(obj, id) {
+            $.ajax({
+                type: "delete",
+                url: "{{ route('cart.delete', '') }}/" + id,
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id
+                },
+                success: function(data) {
+                    console.log(data);
+                    $(obj.parentElement.parentElement.parentElement).fadeTo(150, 0.01, function() {
+                        $(obj.parentElement.parentElement.parentElement).slideUp(150, function() {
+                            $(obj.parentElement.parentElement.parentElement).remove();
+                        });
+                    });
+                    renderCart(data);
+                },
+                error: function(data) {
+                    console.log(data);
+                    renderCart(data);
+
+                }
+            });
+
+        }
+    </script>
+    <script>
+        @if (Auth::check())
+            var quantity = $('input[type="number"]').val();
+            $.ajax({
+                url: '{{ route('getCartData') }}',
+                type: 'get',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(data) {
+                    renderCart(data);
+                }
+            });
+        @else
+            // swal({
+            //     title: "Please Login First",
+            //     text: "You need to login to add to cart",
+            //     icon: "warning",
+            //     buttons: true,
+            //     dangerMode: true,
+            // })
+        @endif
+    </script>
     @yield('custom-scripts')
+
 </body>
 
 </html>
