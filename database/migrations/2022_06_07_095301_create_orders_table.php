@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->uuid('order_id')->nullable();
             $table->foreignId('product_id')
                 ->references('id')
                 ->on('products')

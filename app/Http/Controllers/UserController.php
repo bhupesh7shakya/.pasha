@@ -73,6 +73,15 @@ class UserController extends Controller
         // return redirect();
     }
 
+    public function userHasAddress()
+    {
+        if (Auth::user()->address) {
+            return response()->json(['status' => 'success', 'message' => 'true']);
+        } else {
+            return response()->json(['status' => 'success', 'message' => 'false']);
+        }
+    }
+
     public function logout()
     {
         Auth::logout();

@@ -109,7 +109,9 @@
 
                                     </div>
                                     <div class="card-footer">
-                                        <button class="btn btn-primary float-end">Check Out</button>
+                                        <a href="{{route('cart.checkout')}}">
+                                            <button class="btn btn-primary float-end">Check Out</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

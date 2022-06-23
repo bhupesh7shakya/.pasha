@@ -1,6 +1,6 @@
 @extends('home.layouts.app')
 @section('home-content')
-    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-interval="10000" data-bs-ride="carousel">
         <div class="carousel-inner">
             @foreach ($data['sliders'] as $slider)
                 <div class="carousel-item
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="row d-flex">
+        <div class="row d-flex justify-content-center">
             @foreach ($data['category'] as $c)
             <div class="col-xs-6 col-sm-2 col-sm-4  col-lg-2 my-1">
                 <a href="{{route('search-result')."?category=".$c->id}}" class="card card-link card-link-pop d-flex" style="height: 100%">

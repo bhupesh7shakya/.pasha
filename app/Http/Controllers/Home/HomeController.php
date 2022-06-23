@@ -8,6 +8,7 @@ use App\Models\Admin\FeaturedProduct;
 use App\Models\Admin\Product;
 use App\Models\Admin\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 

@@ -8,6 +8,8 @@ use App\Models\Admin\Order;
 use App\Models\Admin\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
@@ -352,5 +354,12 @@ class OrderController extends Controller
                 );
             }
         }
+    }
+    public function checkout()
+    {
+        Session::put('url.intended',URL::current());
+        $data=$this->class_instance::with('product')->get()->where('user_id',Auth::user()->id)->where('is_place',0);
+
+        return view('home.checkout',compact('data'));
     }
 }
