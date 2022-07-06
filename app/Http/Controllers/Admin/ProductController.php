@@ -114,7 +114,6 @@ class ProductController extends SharedController
                 ],
                 [
                     ['type' => 'text', 'name' => 'details', 'label' => 'Details', 'value' => (isset($data->details)) ? $data->details : null, 'placeholder' => 'Details',],
-
                 ]
             ]
         ];

@@ -25,6 +25,8 @@ class CreateOrdersTable extends Migration
             $table->boolean('is_confirmed')->default(false);
             $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending');
             $table->foreignId('payment_id')->unassigned()->nullable();
+            $table->enum('payment_method',['cod','epay'])->default('cod');
+            $table->boolean('payment_status')->default(false);
             $table->foreignId('user_id')
                 ->references('id')
                 ->on('users')

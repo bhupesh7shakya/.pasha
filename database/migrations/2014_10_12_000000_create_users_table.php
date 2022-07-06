@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('google_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone_number')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

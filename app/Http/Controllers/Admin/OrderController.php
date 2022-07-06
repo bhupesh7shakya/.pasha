@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Shared\SharedController;
 use App\Models\Admin\Order;
 use App\Models\Admin\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -26,18 +27,17 @@ class OrderController extends Controller
         'user_id' => 'required|integer',
     ];
     public $table_headers = [
-        'Product Name',
-        'Quantity',
+        'Order_id',
         'Status',
         'Payment Method',
+        'Payment Status'
     ];
     public $columns = [
-        'product_id',
-        'quantity',
+        'order_id',
         'status',
         'payment_method',
+        'payment_status',
     ];
-
 
     public function createForm($data = null, $method = 'post', $action = 'store')
     {
@@ -47,7 +47,6 @@ class OrderController extends Controller
             'method' => $method,
             'fields' =>
             [
-
                 [
                     ['disabled' => true, 'name' => 'product_id', 'label' => 'Product', 'value' => (isset($data->product_id)) ? Product::all()->find($data->product_id) : null, 'placeholder' => 'Product', 'options' => Product::all()->pluck('name', 'id')],
                     ['disabled' => true, 'type' => 'number', 'name' => 'quantity', 'label' => 'quantity', 'value' => (isset($data->quantity)) ? $data->quantity : null, 'placeholder' => 'quantity',],
@@ -62,9 +61,12 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         // return $this->currentFiscalYear();
+        return  $data = $this->class_instance::
+            with('product')
+            ->where('is_confirmed', 1)
+            ->groupBy('order_id')
+            ->get();
         if ($request->ajax()) {
-            $data = $this->class_instance::all()
-                ->where('is_deleted', 0);
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -259,7 +261,7 @@ class OrderController extends Controller
                 'quantity' => $request->quantity,
                 'user_id' => Auth::user()->id,
             ])) {
-                $data = $this->class_instance::with('product')->get()->where('user_id', Auth::user()->id)->where('is_place', 0);
+                $data = $this->class_instance::with('product')->get()->where('user_id', Auth::user()->id)->where('is_confirmed', 0);
                 return response()->json(
                     [
                         'status' => 200,
@@ -280,46 +282,71 @@ class OrderController extends Controller
         return abort(404, "page not found");
     }
 
-    public function ConfirmOrder(Request $request)
+    public function confirmOrder(Request $request)
     {
-        if ($request->ajax()) {
-            $validator = Validator::make($request->all(), [
-                'order_id' => 'required',
-                'payment_id' => 'required',
-            ]);
-            if ($validator->fails()) {
-                return response()->json(
-                    [
-                        'status' => 400,
-                        'message' => 'Bad Request',
-                        'data' => $validator->errors()
-                    ]
-                );
-            }
-            $order = $this->class_instance::find($request->order_id);
-            $order->is_confirmed = 1;
-            if ($order->save()) {
-                return response()->json(
-                    [
-                        'status' => 200,
-                        'message' => 'Order Placed Successfully',
-                        'data' => $this->class_instance::all()->where('user_id', Auth::user()->id)
-                    ]
-                );
-            } else {
-                return response()->json(
-                    [
-                        'status' => 500,
-                        'message' => 'Server Error',
-                    ]
-                );
-            }
+        // dd($request->all());
+        // if ($request->ajax()) {
+        $validator = Validator::make($request->all(), [
+            'order_id' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'status' => 400,
+                    'message' => 'Bad Request',
+                    'data' => $validator->errors()
+                ]
+            );
         }
+        $user = User::find(Auth::user()->id);
+        $user->address = $request->address;
+        $user->phone_number = $request->phone_number;
+        $user->update();
+        $order = $this->class_instance::all()->where('user_id', Auth::user()->id)->where('is_confirmed', 0);
+        if (isset($request->payment) && $request->payment_method == "cod") {
+            $payment_method = "cod";
+            $order_id = $request->order_id;
+            $payment_status = false;
+        } else {
+            $payment_method = "epay";
+            $order_id = $request->order_id;
+            $payment_status = true;
+        }
+        $order->is_confirmed = 1;
+        foreach ($order as $o) {
+            $o->update([
+                "payment_method" => $payment_method,
+                "order_id" => $order_id,
+                "payment_status" => $payment_status,
+                "is_confirmed" => 1
+            ]);
+            $status = true;
+        }
+        if ($status) {
+            return "order has been placed";
+            return response()->json(
+                [
+                    'status' => 200,
+                    'message' => 'Order Placed Successfully',
+                    'data' => $this->class_instance::all()->where('user_id', Auth::user()->id)
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => 500,
+                    'message' => 'Server Error',
+                ]
+            );
+        }
+        // }
     }
     public function getCartData(Request $request)
     {
         if ($request->ajax()) {
-            $data = $this->class_instance::with('product')->get()->where('user_id', Auth::user()->id)->where('is_place', 0);
+            $data = $this->class_instance::with('product')->get()->where('user_id', Auth::user()->id)->where('is_confirmed', 0);
             return response()->json(
                 [
                     'status' => 200,
@@ -337,7 +364,7 @@ class OrderController extends Controller
 
             $item = $this->class_instance::find($id);
             if ($item->delete()) {
-                $data=$this->class_instance::with('product')->get()->where('user_id',Auth::user()->id)->where('is_place',0);
+                $data = $this->class_instance::with('product')->get()->where('user_id', Auth::user()->id)->where('is_confirmed', 0);
                 return response()->json(
                     [
                         'status' => 200,
@@ -357,9 +384,8 @@ class OrderController extends Controller
     }
     public function checkout()
     {
-        Session::put('url.intended',URL::current());
-        $data=$this->class_instance::with('product')->get()->where('user_id',Auth::user()->id)->where('is_place',0);
-
-        return view('home.checkout',compact('data'));
+        Session::put('url.intended', URL::current());
+        $data['cart_list'] = $this->class_instance::with('product')->get()->where('user_id', Auth::user()->id)->where('is_confirmed', 0);
+        return view('home.checkout', compact('data'));
     }
 }

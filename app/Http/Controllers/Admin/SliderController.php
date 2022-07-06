@@ -18,7 +18,6 @@ class SliderController extends SharedController
         'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',];
     public $table_headers = [
         'Image',
-
     ];
     public $columns = [
         'image',

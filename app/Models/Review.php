@@ -1,25 +1,24 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Models;
 
+use App\Models\Admin\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Review extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'order_id',
         "product_id",
-        "quantity",
-        "payment_method",
-        "payment_status",
-        "status",
-        "is_confirmed",
-        "payment_id",
         "user_id",
+        "comment",
+        "rating",
     ];
     public function product(){
         return $this->belongsTo(Product::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

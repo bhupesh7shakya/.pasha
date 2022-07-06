@@ -22,10 +22,10 @@
                         </div>
                         <div class="col">
                             <div class="font-weight-medium display-7">
-                                Total Sales
+                                No of Orders
                             </div>
                             <div class="text-muted">
-                                NRS:- 777/-
+                                No:- {{ $data['no_of_orders'] }}
                             </div>
                         </div>
                     </div>
@@ -53,10 +53,10 @@
                         </div>
                         <div class="col">
                             <div class="font-weight-medium display-7">
-                                Total Sales
+                                No of Consumer
                             </div>
                             <div class="text-muted">
-                                NRS:- 777/-
+                                No:- {{ $data['no_of_orders'] }}
                             </div>
                         </div>
                     </div>
@@ -85,10 +85,11 @@
                         </div>
                         <div class="col">
                             <div class="font-weight-medium display-7">
-                                Total Consumers
+                                Total Completed Orders
                             </div>
                             <div class="text-muted">
-                                No:- 100
+                                No:- {{ $data['completed'] }}
+
                             </div>
                         </div>
                     </div>
@@ -109,51 +110,18 @@
                             <th>Customer Name</th>
                             <th>Order Date</th>
                             <th>Order Status</th>
-                            <th>Total</th>
-                            <th>Action</th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>#12345</td>
-                            <td>John Doe</td>
-                            <td>12/12/2019</td>
-                            <td>Pending</td>
-                            <td>NRS:- 777/-</td>
-                            <td>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-primary">View</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#12345</td>
-                            <td>John Doe</td>
-                            <td>12/12/2019</td>
-                            <td>Pending</td>
-                            <td>NRS:- 777/-</td>
-                            <td>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-primary">View</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#12345</td>
-                            <td>John Doe</td>
-                            <td>12/12/2019</td>
-                            <td>Pending</td>
-                            <td>NRS:- 777/-</td>
-                            <td>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-primary">View</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#12345</td>
-                            <td>John Doe</td>
-                            <td>12/12/2019</td>
-                            <td>Pending</td>
-                            <td>NRS:- 777/-</td>
-                            <td>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-primary">View</a>
-                            </td>
-                        </tr>
+                        @foreach ($data['orders'] as $order)
+                            <tr>
+                                <td>{{$order->order_id}}</td>
+                                <td>{{$order->product->name}}</td>
+                                <td>{{$order->quantity}}</td>
+                                <td>{{$order->status}}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
 

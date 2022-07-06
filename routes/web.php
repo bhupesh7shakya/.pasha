@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Models\Admin\Slider;
 use Illuminate\Support\Facades\Route;
@@ -48,11 +49,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search-result', [HomeController::class, 'searchResult'])->name('search-result');
 Route::get('/product/{id}', [HomeController::class, 'product'])->name('product');
 
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->group(function () {
     Route::post('/cart/add', [OrderController::class, 'cart'])->name('cart.add');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/getCartData', [OrderController::class, 'getCartData'])->name('getCartData');
     Route::delete('/cart/delete/{id}', [OrderController::class, 'removeItemCart'])->name('cart.delete');
     Route::get('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
-    Route::get('/address/check',[UserController::class,'userHasAddress'])->name('address.check');
+    Route::get('/address/check', [UserController::class, 'userHasAddress'])->name('address.check');
+    Route::put('/confirm/order', [OrderController::class, 'confirmOrder'])->name('order.confirm');
+    Route::resource('/review',ReviewController::class);
 });
