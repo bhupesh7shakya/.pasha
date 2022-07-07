@@ -35,8 +35,9 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
           server: ftp.digitalpalika.org
-          username: testCICD@digitalpalika.org
-          password: ${{ secrets.test }}
+          # username: testCICD@digitalpalika.org
+          username : epiz_32060861
+          password: ${{ secrets.INFINITY_FREE }}
           exclude: |
             **/.git*
             **/.git*/**
