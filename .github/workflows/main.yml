@@ -27,6 +27,9 @@ jobs:
       - name: current path
         run : pwd
 
+      - name : list of files
+        run : ls
+
 
       # - name: 📂 Sync files
       #   uses: SamKirkland/FTP-Deploy-Action@4.3.0
