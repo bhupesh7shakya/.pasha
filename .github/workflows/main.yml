@@ -37,3 +37,7 @@ jobs:
           server: ftp.digitalpalika.org
           username: testCICD@digitalpalika.org
           password: ${{ secrets.test }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/vendor/**
