@@ -28,7 +28,7 @@ jobs:
         run : pwd
 
       - name : list of files
-        run : ls
+        run : ls -a
 
 
       # - name: 📂 Sync files
