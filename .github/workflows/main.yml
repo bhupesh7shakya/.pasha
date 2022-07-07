@@ -15,7 +15,7 @@ jobs:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
         php-version: '7.4.27'
-        extensions: mbstring, ctype ,fileinfo , openssl , PDO ,bcmath , json ,token ,xml
+        extensions: mbstring, ctype ,fileinfo , openssl , PDO ,bcmath , json ,tokenizer ,xml
 
     - uses: actions/checkout@v3
     - name: Copy .env
@@ -24,6 +24,8 @@ jobs:
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
       run: php artisan key:generate
+    - name: Zipping files & compressing it
+      run : tar -czf projectdp.tar.gz --exclude=*.git
 
     # - name: 📂 Sync files
     #   uses: SamKirkland/FTP-Deploy-Action@4.3.0
