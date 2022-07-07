@@ -1,4 +1,4 @@
-name: Laravel app
+name: Laravel
 
 on:
   push:
