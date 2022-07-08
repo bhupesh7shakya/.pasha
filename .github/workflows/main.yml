@@ -34,11 +34,11 @@ jobs:
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
-          # server: ftp.digitalpalika.org
-          server: ftpupload.net
-          # username: testCICD@digitalpalika.org
-          username : epiz_32060861
-          password: ${{ secrets.INFINITY_FREE }}
+          server: ftp.digitalpalika.org
+          # server: ftpupload.net
+          username: testCICD@digitalpalika.org
+          # username : epiz_32060861
+          password: ${{ secrets.test }}
           exclude: |
             **/.git*
             **/.git*/**
