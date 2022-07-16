@@ -24,21 +24,16 @@ jobs:
       - name: Generate key
         run: php artisan key:generate
 
-      - name: current path
-        run : pwd
-
-      - name : list of files
-        run : ls -a
-
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
-          server: ftp.digitalpalika.org
-          # server: ftpupload.net
-          username: testCICD@digitalpalika.org
-          # username : epiz_32060861
-          password: ${{ secrets.test }}
+          # server: ftp.digitalpalika.org
+          server: ftpupload.net
+          # username: testCICD@digitalpalika.org
+          username : epiz_32060861
+          password: ${{ secrets.INFINITY_FREE }}
           exclude: |
             **/.git*
             **/.git*/**
+            **/vendor/**
