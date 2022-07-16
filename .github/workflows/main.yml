@@ -36,4 +36,4 @@ jobs:
           exclude: |
             **/.git*
             **/.git*/**
-            **/vendor/**
+
