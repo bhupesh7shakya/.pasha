@@ -20,7 +20,7 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install -q --no-ansi --no-interaction --no-scripts  --prefer-dist --no-dev --no-ansi --no-dev --optimize-autoloader --no-plugins
       - name: Generate key
         run: php artisan key:generate
       - name: Listing Directory
@@ -31,16 +31,16 @@ jobs:
         run: ls -a
 
 
-      # - name: 📂 Sync files
-        # uses: SamKirkland/FTP-Deploy-Action@4.3.0
-        # with:
-        #   # server: ftp.digitalpalika.org
-        #   server: ftpupload.net
-        #   # username: testCICD@digitalpalika.org
-        #   username : epiz_32060861
-        #   password: ${{ secrets.INFINITY_FREE }}
-        #   exclude: |
-        #     **/.git*
-        #     **/.git*/**
-        #   server-dir: ./public_html/
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          # server: ftp.digitalpalika.org
+          server: ftpupload.net
+          # username: testCICD@digitalpalika.org
+          username : epiz_32060861
+          password: ${{ secrets.INFINITY_FREE }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+          server-dir: ./public_html/
 
