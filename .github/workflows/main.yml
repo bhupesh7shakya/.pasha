@@ -36,4 +36,5 @@ jobs:
           exclude: |
             **/.git*
             **/.git*/**
+          server-dir: ./public_html/
 
