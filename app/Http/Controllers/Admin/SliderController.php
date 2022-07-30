@@ -20,7 +20,7 @@ class SliderController extends SharedController
         'Image',
     ];
     public $columns = [
-        'image',
+        'image'=>['name'=>'image','is_image'=>true],
     ];
 
     public function store(Request $request)

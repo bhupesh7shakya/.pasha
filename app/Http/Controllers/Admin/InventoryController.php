@@ -7,6 +7,7 @@ use App\Http\Controllers\Shared\SharedController;
 use App\Models\Admin\Inventory;
 use App\Models\Admin\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class InventoryController extends SharedController
 {
@@ -16,7 +17,7 @@ class InventoryController extends SharedController
     public $view_path = 'shared_view';
     public $rules =
     [
-        'product_id' => 'required|integer|exists:products,id|unique:inventories,product_id',
+        'product_id' => 'required|integer|exists:products,id|unique:inventories,product_id,',
         'quantity' => 'required|integer|min:0|max:1000',
     ];
     public $table_headers = [
@@ -43,4 +44,21 @@ class InventoryController extends SharedController
             ]
         ];
     }
+    public function update(Request $request, $id)
+    {
+        $this->rules['product_id']=$this->rules['product_id'].$id;
+        $validator = Validator::make($request->all(), $this->rules);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = $this->class_instance::find($id);
+        if ($data->update($request->all())) {
+            session()->flash("success", "Data updated successfully");
+            return redirect()->route("{$this->route_name}.index");
+        }
+    }
+
 }

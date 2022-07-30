@@ -73,7 +73,7 @@
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="payment" id="epay" value="epay">
+                            <input class="form-check-input" type="radio" name="payment_method" id="epay" value="epay">
                             <label class="form-check-label" for="exampleRadios2">
                                 EPay
                             </label>
@@ -83,7 +83,7 @@
                             <button class="btn-primary" type="button" id="payment-button">Pay with Khalti</button>
                         </div>
 
-                        <input type="hidden" id="epayment" name="epayment">
+                        <input type="hidden" id="epayment" value="" name="epayment">
                         <button type="submit" id="c_order" class="btn btn-primary float-end">Confirm Order</button>
                     </form>
                 </div>
@@ -98,8 +98,8 @@
             // replace the publicKey with yours
             "publicKey": "test_public_key_424dea265563478e961e0df0a9dee1dd",
             "productIdentity": "1234567890",
-            "productName": "Dragon",
-            "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+            "productName": "",
+            "productUrl": "{{url()}}",
             "paymentPreference": [
                 "KHALTI",
                 "EBANKING",

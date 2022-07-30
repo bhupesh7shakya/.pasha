@@ -36,7 +36,7 @@ class OrderController extends Controller
         'order_id',
         'status',
         'payment_method',
-        'payment_status',
+        'payment_status'=>['name'=>'payment_status','whileTrue'=>'Paid','whileFalse'=>"Not Paid"],
     ];
 
     public function createForm($data = null, $method = 'post', $action = 'store')
@@ -61,10 +61,9 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         // return $this->currentFiscalYear();
-        return  $data = $this->class_instance::
-            with('product')
+        $data = $this->class_instance::with('product')
             ->where('is_confirmed', 1)
-            ->groupBy('order_id')
+            // ->groupBy('')
             ->get();
         if ($request->ajax()) {
             return DataTables::of($data)
@@ -289,7 +288,8 @@ class OrderController extends Controller
         $validator = Validator::make($request->all(), [
             'order_id' => 'required',
             'address' => 'required',
-            'phone_number' => 'required'
+            'phone_number' => 'required',
+            'payment_method' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(
@@ -310,6 +310,17 @@ class OrderController extends Controller
             $order_id = $request->order_id;
             $payment_status = false;
         } else {
+            return $request->epayment;
+            /*
+            {
+    "idx": "8xmeJnNXfoVjCvGcZiiGe7",
+    "amount": 1000,
+    "mobile": "98XXXXX969",
+    "product_identity": "1234567890",
+    "product_name": "Dragon",
+    "product_url": "http://gameofthrones.wikia.com/wiki/Dragons",
+    "token": "QUao9cqFzxPgvWJNi9aKac"
+} */
             $payment_method = "epay";
             $order_id = $request->order_id;
             $payment_status = true;

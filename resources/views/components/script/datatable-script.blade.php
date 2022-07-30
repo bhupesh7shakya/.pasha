@@ -37,16 +37,21 @@
                           @endif
                           ,
                           render: function(data, type, row) {
+                            @if(isset($column['is_image']))
+                                return `
+                                    <img src='http://localhost:8000/storage/images/${data}'/>
+                                `
+                            @endif
                               if (data == '1') {
                                   return `
-                                  <span class="badge text-success">
+                                  <span class=" text-success">
                                       @if (isset($column['whileTrue']))
                                           {{$column["whileTrue"]}}
                                       @endif
                                   </span>`
                               }else if(data == '0'){
                                   return `
-                                  <span class="badge text-danger">
+                                  <span class=" text-danger">
                                       @if (isset($column['whileTrue']))
                                           {{$column["whileFalse"]}}
                                       @endif
