@@ -65,13 +65,13 @@
                             <div class="product-name pt-3">
                                 <h3 class="text-capitalize">{{ $na->name }}</h3>
                                 <p class="mb-0 amount">Nrs {{ $na->price }}</p>
-                                <div class="py-1">
+                                {{-- <div class="py-1">
                                     <span class="fa-solid fa-star"></span>
                                     <span class="fa-solid fa-star"></span>
                                     <span class="fa-solid fa-star"></span>
                                     <span class="fa-solid fa-star"></span>
                                     <span class="fa-solid fa-star"></span>
-                                </div>
+                                </div> --}}
                                 <button type="button" class="Add-to-cart">SHOP NOW</button>
                             </div>
                         </div>
@@ -107,13 +107,13 @@
                             <div class="product-name pt-3">
                                 <h3 class="text-capitalize">{{ $fp->product->name }}</h3>
                                 <p class="mb-0 amount">Nrs {{ $fp->product->price }}</p>
-                                <div class="py-1">
+                                {{-- <div class="py-1">
                                     <span class="fa-solid fa-star"></span>
                                     <span class="fa-solid fa-star"></span>
                                     <span class="fa-solid fa-star"></span>
                                     <span class="fa-solid fa-star"></span>
                                     <span class="fa-solid fa-star"></span>
-                                </div>
+                                </div> --}}
                                 <button type="button" class="Add-to-cart">SHOP NOW</button>
                             </div>
                         </div>

@@ -97,9 +97,9 @@
                                 <button type="submit" class="btn btn-primary w-100">
                                     Confirm changes
                                 </button>
-                                <a href="#" class="btn btn-link w-100">
+                                {{-- <a href="#" class="btn btn-link w-100">
                                     Reset to defaults
-                                </a>
+                                </a> --}}
                             </div>
                         </form>
                     </div>

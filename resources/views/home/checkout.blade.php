@@ -98,8 +98,8 @@
             // replace the publicKey with yours
             "publicKey": "test_public_key_424dea265563478e961e0df0a9dee1dd",
             "productIdentity": "1234567890",
-            "productName": "",
-            "productUrl": "{{url()}}",
+            "productName": "Dragon",
+            "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
             "paymentPreference": [
                 "KHALTI",
                 "EBANKING",

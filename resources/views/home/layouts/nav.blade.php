@@ -134,7 +134,7 @@
 
                     <div class="row mx-5 my-4">
                         <div class="col">
-                            <form action="#" method="post">
+                            {{-- <form action="#" method="post">
                                 <div class="form-group">
                                     <label class="form-label" for="Email">Email</label>
                                     <input type="text" class="form-control" id="Email" placeholder="Email">
@@ -146,10 +146,10 @@
                                 </div>
                                 <br>
                                 <button class="form-control btn btn-primary">Login</button>
-                            </form>
-                            <br>
-                            <p class="text-center">Or</p>
-                            <a href="{{ route('google.redirect') }}" data-onsuccess="onSignIn" class="g-signin2">
+                            </form> --}}
+                            {{-- <br>
+                            <p class="text-center">Or</p> --}}
+                            <a href="{{ route('google.redirect') }}" data-onsuccess="onSignIn"  class="g-signin2 btn btn-danger">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-brand-google" width="24" height="24"
@@ -180,7 +180,7 @@
 
                     <div class="row mx-5 my-4">
                         <div class="col">
-                            <form action="#" method="post">
+                            {{-- <form action="#" method="post">
                                 <div class="form-group">
                                     <label class="form-label" for="Email">Email</label>
                                     <input type="email" class="form-control" id="Email" placeholder="Email">
@@ -203,7 +203,7 @@
                                 <button class="form-control btn btn-primary">Login</button>
                             </form>
                             <br>
-                            <p class="text-center">Or</p>
+                            <p class="text-center">Or</p> --}}
                             <a href="{{ route('google.redirect') }}" data-onsuccess="onSignIn"
                                 class="g-signin2 btn btn-danger w-100">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
