@@ -11,13 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: setting up php
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
           php-version: "7.4.27"
           extensions: mbstring, ctype ,fileinfo , openssl , PDO ,bcmath , json ,tokenizer ,xml
-      - name: setting up mysql server
-        uses: mirromutth/mysql-action@master
+          
+      - uses: mirromutth/mysql-action@master
         with:
           mysql version: 5.7
           mysql database: pasha
