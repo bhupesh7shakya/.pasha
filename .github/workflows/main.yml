@@ -28,7 +28,7 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts  --prefer-dist --no-dev --no-ansi --no-dev --optimize-autoloader --no-plugins
       - name: Generate key
         run: php artisan key:generate
-      - name: Migrating test
+      - name: Migrating database
         run: php artisan migrate
       # - name: Going back
       #   run: pwd
