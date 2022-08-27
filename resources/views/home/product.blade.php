@@ -1,5 +1,22 @@
 @extends('home.layouts.app')
 @section('custom-style')
+    <style>
+    .rating-list li {
+    float: right;
+    color: #ddd;
+    padding: 10px 5px;
+    }
+
+    .rating-list li:hover,
+    .rating-list li:hover ~ li {
+    color: #ffd700;
+    }
+
+    .rating-list {
+    display: inline-block;
+    list-style: none;
+    }
+        </style>
 @endsection
 @section('home-content')
     <div class="row mt-5">
@@ -90,6 +107,14 @@
         @auth
             <form action="{{route('review.store')}}" method="post" class="my-5">
                 @csrf
+                <input type="hidden" id="rating" name="rating" value="0">
+                <ul class="list-inline d-flex rating-list">
+                    <li><i class="fa fa-star" onclick="rate(5)" title="Rate 5"></i></li>
+                    <li><i class="fa fa-star" onclick="rate(4)" title="Rate 4"></i></li>
+                    <li><i class="fa fa-star" onclick="rate(3)" title="Rate 3"></i></li>
+                    <li><i class="fa fa-star" onclick="rate(2)" title="Rate 2"></i></li>
+                    <li><i class="fa fa-star" onclick="rate(1)" title="Rate 1"></i></li>
+                  </ul>
                 <input type="hidden" name="product_id" value="{{$data['product']->id}}">
                 <textarea name="comment" id="" cols="30" rows="2" class="form-control "></textarea>
                 <br>
@@ -127,6 +152,9 @@
 
 @section('custom-scripts')
     <script>
+        function rate(num) {
+            $('#rating').val(num);
+         }
         function addToCart(id) {
             @if (Auth::check())
                 var quantity = $('input[type="number"]').val();

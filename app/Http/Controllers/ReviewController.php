@@ -21,6 +21,7 @@ class ReviewController extends Controller
         $request->validate(
             [
                 "comment"=>"required|min:10|max:100",
+                "rating"=>"required|min:1|max:5",
                 "product_id"=>"required",
             ]
         );
