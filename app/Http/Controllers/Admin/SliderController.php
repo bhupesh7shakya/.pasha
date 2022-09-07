@@ -15,7 +15,7 @@ class SliderController extends SharedController
     public $route_name = 'slider';
     public $view_path = 'shared_view';
     public $rules = [
-        'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',];
+        'image' => 'mimes:jpeg,jpg,png,gif,webp|required|max:10000',];
     public $table_headers = [
         'Image',
     ];
