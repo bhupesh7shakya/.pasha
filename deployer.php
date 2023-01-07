@@ -2,6 +2,7 @@
 
 namespace Deployer;
 
+require 'recipe/common.php';
 require 'recipe/laravel.php';
 require 'recipe/rsync.php';
 
