@@ -109,7 +109,7 @@ h1 { font-size: 1.5em; margin: 10px; }
                 @endif
                 @php $data['average_rating']--; @endphp
             @endwhile
-            <input class="form-control" type="number" style="width: 80px;" value="1">
+            <input class="form-control" type="number" style="width: 80px;" value="1" max="10">
             <p class="text-muted my-4">
                 {{-- {{ $data['product']->description }} --}}
                 Stock:-10 pcs.
