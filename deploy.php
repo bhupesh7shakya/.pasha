@@ -2,10 +2,8 @@
 
 namespace Deployer;
 
-
 require 'recipe/laravel.php';
-require 'recipe/rsync.php';
-
+// require 'recipe/rsync.php';
 
 set('application', 'My App');
 set('ssh_multiplexing', true);
@@ -32,17 +30,19 @@ task('deploy:secrets', function () {
     upload('.env', get('deploy_path') . '/shared');
 });
 
-host('myapp.io')
-    ->hostname('15.206.163.97')
-    ->stage('production')
-    ->user('ubuntu')
-    ->set('deploy_path', '/var/www/html');
+host('13.126.65.159')
+    // ->hostname('104.248.172.220')
+    // ->stage('production')
+    // ->user('ubuntu')
+    ->set('remote_user', 'ubuntu')
 
-host('staging.myapp.io')
-    ->hostname('15.206.163.97')
-    ->stage('staging')
-    ->user('ubuntu')
-    ->set('deploy_path', '/var/www/my-app-staging');
+    ->set('deploy_path', '/var/www/my-app');
+
+// host('staging.myapp.io')
+//     ->hostname('104.248.172.220')
+//     ->stage('staging')
+//     ->user('root')
+//     ->set('deploy_path', '/var/www/my-app-staging');
 
 after('deploy:failed', 'deploy:unlock');
 
