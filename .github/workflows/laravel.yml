@@ -28,12 +28,12 @@ jobs:
         run: npm install
       - name: Generate Key
         run: php artisan key:generate
-      # - name: Execute tests (Unit and Feature tests) via PHPUnit
-      #   env:
-      #     DB_PORT: ${{ job.services.mysql.ports[3306] }}
-      #   run: vendor/bin/phpunit
-      # - name: Execute tests (Unit and Feature tests) via JEST
-      #   run: node_modules/.bin/jest
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+        run: vendor/bin/phpunit
+      - name: Execute tests (Unit and Feature tests) via JEST
+        run: node_modules/.bin/jest
   build-js-production:
     name: Build JavaScript/CSS for PRODUCTION Server
     runs-on: ubuntu-latest
@@ -93,7 +93,7 @@ jobs:
       - name: Deploy to PRODUCTION Server
         env:
           DOT_ENV: ${{ secrets.DOT_ENV_PRODUCTION }}
-        run: /vendor/bin/dep deploy production --tag=${{ env.GITHUB_REF }} -vvv
+        run: dep deploy production --tag=${{ env.GITHUB_REF }} -vvv
   deploy-staging:
     name: Deploy Project to STAGING Server
     runs-on: ubuntu-latest
