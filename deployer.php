@@ -5,6 +5,7 @@ namespace Deployer;
 
 require 'recipe/laravel.php';
 require 'recipe/rsync.php';
+require 'deploy.php';
 
 set('application', 'My App');
 set('ssh_multiplexing', true);
