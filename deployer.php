@@ -2,7 +2,7 @@
 
 namespace Deployer;
 
-require 'recipe/common.php';
+
 require 'recipe/laravel.php';
 require 'recipe/rsync.php';
 
@@ -34,13 +34,13 @@ task('deploy:secrets', function () {
 host('myapp.io')
     ->hostname('15.206.163.97')
     ->stage('production')
-    ->user('root')
-    ->set('deploy_path', '/var/www/my-app');
+    ->user('ubuntu')
+    ->set('deploy_path', '/var/www/html');
 
 host('staging.myapp.io')
     ->hostname('15.206.163.97')
     ->stage('staging')
-    ->user('root')
+    ->user('ubuntu')
     ->set('deploy_path', '/var/www/my-app-staging');
 
 after('deploy:failed', 'deploy:unlock');
