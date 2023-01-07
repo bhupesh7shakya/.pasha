@@ -1,4 +1,3 @@
-
 <form style="width: 100%;" id="form" method="POST" action="{{ $form['route'] }}" enctype="multipart/form-data">
     @csrf
     @if ($form['method'] == 'put' || $form['method'] == 'patch')
