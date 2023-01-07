@@ -31,13 +31,13 @@ task('deploy:secrets', function () {
 });
 
 host('myapp.io')
-    ->hostname('104.248.172.220')
+    ->hostname('15.206.163.97')
     ->stage('production')
     ->user('root')
     ->set('deploy_path', '/var/www/my-app');
 
 host('staging.myapp.io')
-    ->hostname('104.248.172.220')
+    ->hostname('15.206.163.97')
     ->stage('staging')
     ->user('root')
     ->set('deploy_path', '/var/www/my-app-staging');
