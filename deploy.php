@@ -14,7 +14,7 @@ set('repository', 'https://github.com/bhupesh7shakya/.pasha.git');
 
 // Hosts
 
-host('13.235.134.158')
+host('${{ secrets.SSH_KNOWN_HOSTS }}')
     ->set('remote_user', 'ubuntu')
     ->set('deploy_path', '/home');
 // task
